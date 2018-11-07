@@ -8,7 +8,7 @@ var foods = [
     {
         'name':'',
         'flavorLoc':
-        {'savory':0,'sweet':0,'salty':0,'numbing':0,'pungent':0,'cooling':0,'sour':0,'bitter':0,'astringent':0,'chalky':0,'fatty':0,'hearty':0,'cold':0,'starchy':0},,
+        {'savory':0,'sweet':0,'salty':0,'numbing':0,'pungent':0,'cooling':0,'sour':0,'bitter':0,'astringent':0,'chalky':0,'fatty':0,'hearty':0,'cold':0,'starchy':0},
         'url':'google.com'
     }
 ];
