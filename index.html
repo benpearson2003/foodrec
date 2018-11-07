@@ -1,0 +1,156 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>foodrec</title>
+</head>
+<body>
+    <div class="col">
+        <button id="0"></button>
+    </div>
+    <div class="col">
+        <button id="1"></button>
+    </div>
+    <div id="answer">
+    </div>
+</body>
+<script src="foods.js"></script>
+<script src="restaurants.js"></script>
+<script>
+var i = 0;
+var iMax = 10;
+function answer(key,antikey) {
+    if(i < iMax){
+        i++;
+        key = document.getElementById(key).innerHTML;
+        antikey = document.getElementById(antikey).innerHTML;
+        playerLoc[key] += 1;
+        playerLoc[antikey] -= 1;
+    }
+    ask();
+}
+function ask() {
+    if(i >= iMax) {
+        sortFoods();
+        for(var j = 0;j < foods.length; j++) {
+            document.getElementById("answer").innerHTML += "<div>" + foods[j]['name'] + "</div>";
+        }
+        var cols = document.getElementsByClassName('col');
+        for(var k in cols){
+            cols[k].style.visibility = "hidden";
+        }
+    } else {
+        var first = Math.floor(Math.random()*flavors.length);
+        var second = Math.floor(Math.random()*flavors.length);
+        while(first == second) {
+            second = Math.floor(Math.random()*flavors.length);
+        }
+        document.getElementById("0").innerHTML = flavors[first];
+        document.getElementById("0").className = flavors[first];
+        document.getElementById("1").innerHTML = flavors[second];
+        document.getElementById("1").className = flavors[second];
+    }
+}
+function sortFoods() {
+    for(var i = 0;i < foods.length; i++) {
+        var distance = 0;
+        for(var k in flavors){
+            var flavorDistance = foods[i]['flavorLoc'][flavors[k]] - playerLoc[flavors[k]];
+            flavorDistance = flavorDistance * flavorDistance;
+            distance += flavorDistance;
+        }
+        foods[i]['distance'] = Math.sqrt(distance);
+    }
+    function compare(a,b) {
+      if (a.distance < b.distance)
+         return -1;
+      if (a.distance > b.distance)
+        return 1;
+      return 0;
+    }
+    foods.sort(compare);
+}
+var flavors = ['savory','sweet','salty','numbing','pungent','cooling','sour','bitter','astringent','chalky','fatty','hearty','cold','starchy'];
+var playerLoc = [];
+for(var k in flavors) {
+    playerLoc[flavors[k]] = 0;
+}
+document.addEventListener("DOMContentLoaded", function(event) {
+    document.getElementById("0").onclick = function(){answer('0','1');};
+    document.getElementById("1").onclick = function(){answer('1','0');};
+    ask();
+});
+</script>
+<style>
+    .col {
+        display: inline-block;
+        width: 49%;
+    }
+    .col button {
+        color: white;
+        text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+        font-size: 2em;
+        width: 100%;
+        height: 150px;
+    }
+    .savory {
+        background-image: url("images/savory.png");
+        background-repeat: no-repeat;
+    }
+    .sweet {
+        background-image: url("images/sweet.png");
+        background-repeat: no-repeat;
+    }
+    .salty {
+        background-image: url("images/salty.png");
+        background-repeat: no-repeat;
+    }
+    .numbing {
+        background-image: url("images/numbing.png");
+        background-repeat: no-repeat;
+    }
+    .pungent {
+        background-image: url("images/pungent.png");
+        background-repeat: no-repeat;
+    }
+    .cooling {
+        background-image: url("images/cooling.png");
+        background-repeat: no-repeat;
+    }
+    .sour {
+        background-image: url("images/sour.png");
+        background-repeat: no-repeat;
+    }
+    .bitter {
+        background-image: url("images/bitter.png");
+        background-repeat: no-repeat;
+    }
+    .astringent {
+        background-image: url("images/astringent.png");
+        background-repeat: no-repeat;
+    }
+    .metallic {
+        background-image: url("images/metallic.png");
+        background-repeat: no-repeat;
+    }
+    .chalky {
+        background-image: url("images/chalky.png");
+        background-repeat: no-repeat;
+    }
+    .fatty {
+        background-image: url("images/fatty.png");
+        background-repeat: no-repeat;
+    }
+    .hearty {
+        background-image: url("images/hearty.png");
+        background-repeat: no-repeat;
+    }
+    .cold {
+        background-image: url("images/cold.png");
+        background-repeat: no-repeat;
+    }
+    .starchy {
+        background-image: url("images/starchy.png");
+        background-repeat: no-repeat;
+    }
+</style>
+</html>
